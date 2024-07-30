@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pkt.mapper.MemberMapper">
+	<select id="idOk" resultType="int">
+		select count(*) from member where useremail = #{useremail}
+	</select>
+	
+	<insert id="create">
+		insert into member (useremail, userpw, username, connecttype, emailresult, phone1, phone2, phone3, signdate, zipcode, zipcode1, zipcode2, zipcode3, zipcode4) 
+		values (#{useremail},#{userpw},#{username},#{connecttype},#{emailresult},#{phone1},#{phone2},#{phone3},now(),#{zipcode},#{zipcode1},#{zipcode2},#{zipcode3},#{zipcode4})
+	</insert>
+	
+	<select id="login" resultType="com.pkt.model.MemberVO">
+		select * from member where useremail = #{useremail} and userpw = #{userpw}
+	</select>
+	
+	<select id="read" resultType="com.pkt.model.MemberVO">
+		select * from member where useremail = #{sessionScope.id}
+	</select>
+
+	<update id="update">
+		update member set username = #{username}, phone1 = #{phone1}, phone2 = #{phone2}, phone3 = #{phone3}, 
+			zipcode = #{zipcode}, zipcode1 = #{zipcode1}, zipcode2 = #{zipcode2}, zipcode3 = #{zipcode3}, zipcode4 = #{zipcode4} 
+			where useremail = #{useremail}
+	</update>
+
+	<update id="updatePass">
+		update member set userpw = #{userpw}, username = #{username}, phone1 = #{phone1}, phone2 = #{phone2}, phone3 = #{phone3}, 
+			zipcode = #{zipcode}, zipcode1 = #{zipcode1}, zipcode2 = #{zipcode2}, zipcode3 = #{zipcode3}, zipcode4 = #{zipcode4} 
+			where useremail = #{useremail}
+	</update>
+	
+	<insert id="createKakao">
+		insert into member (useremail, userpw, username, connecttype, signdate) 
+		values (#{useremail},#{userpw},#{username},#{connecttype},now())
+	</insert>
+	
+	<insert id="createNaver">
+		insert into member (useremail, userpw, username, connecttype, signdate, phone1, phone2, phone3) 
+		values (#{useremail},#{userpw},#{username},#{connecttype},now(),#{phone1},#{phone2},#{phone3})
+	</insert>
+	
+	<select id="findUserId" resultType="com.pkt.model.MemberVO">
+	    select * from member where phone2 = #{phone2} and phone3 = #{phone3}
+	</select>
+	
+	<select id="findUserPass" resultType="com.pkt.model.MemberVO">
+		select * from member where useremail = #{useremail}
+	</select>
+	
+</mapper>

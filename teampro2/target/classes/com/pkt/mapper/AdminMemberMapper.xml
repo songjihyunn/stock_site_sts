@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pkt.mapper.AdminMemberMapper">
+	<select id="getMemberList" resultType="com.pkt.model.MemberVO"> SELECT * FROM member ORDER BY signdate DESC LIMIT #{pageStart}, #{perPageNum} </select>
+	<select id="getOneMember" resultType="com.pkt.model.MemberVO"> select * from member where useremail = #{useremail} </select>
+	<update id="memberModify"> update member set userpw = #{userpw}, username = #{username}, connecttype = #{connecttype}, phone1 = #{phone1}, phone2 = #{phone2}, phone3 = #{phone3}, zipcode = #{zipcode}, zipcode1 = #{zipcode1}, zipcode2 = #{zipcode2}, zipcode3 = #{zipcode3}, zipcode4 = #{zipcode4}, level = #{level} where useremail = #{useremail} </update>
+	<select id="memberCount" resultType="int"> select count(useremail) from member </select>
+	<!--  페이징  -->
+	<select id="listCriteria" resultType="com.pkt.model.MemberVO"> select * from member order by signdate desc limit #{startPage}, #{perPageNum} </select>
+	<select id="countPaging" resultType="int"> select count(useremail) from member </select>
+</mapper>

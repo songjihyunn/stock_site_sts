@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pkt.mapper.BoardMapper">
+	<select id="getList" resultType="com.pkt.model.BoardVO">
+	<!--   <![CDATA[ ]]: sql 구문안에 비교 연산자가 들어갈 경우(특수문자) 문자열로 인식하게 하기 위해서 ...   -->
+	<![CDATA[ select * from board where bno > 0 ]]>
+	</select>
+<!--   목록(페이징)   -->
+	<select id="listPage" resultType="com.pkt.model.BoardVO">
+		<![CDATA[ select * from board where bno > 0 order by bno desc limit #{page}, 5 ]]>
+	</select>
+<!--   목록(페이징)   -->
+	<select id="listCriteria" resultType="com.pkt.model.BoardVO">
+		<![CDATA[ select * from board where bno > 0 order by bno desc limit #{pageStart}, #{perPageNum} ]]>
+	</select>
+	<select id="countPaging" resultType="int">
+		<![CDATA[ select count(bno) from board where bno > 0 ]]>
+	</select>
+	<update id="updateViewCnt"> update board set viewcnt = viewcnt + 1 where bno = #{bno} </update>
+	<!--   글 쓰기   -->
+	<insert id="create"> insert into board (title, content, writer, file01, file02, file03, file01_thum, code) values (#{title},#{content},#{writer},#{file01},#{file02},#{file03},#{file01_thum},#{code}) </insert>
+	<!--   검색   -->
+	<select id="read" resultType="com.pkt.model.BoardVO"> select * from board where bno = #{bno} </select>
+	<!--   수정   -->
+	<update id="update"> update board set title =#{title}, content =#{content}, file01 =#{file01}, file02 =#{file02}, file03 =#{file03}, file01_thum =#{file01_thum}, code=#{code} where bno = #{bno} </update>
+	<!--   삭제   -->
+	<delete id="delete"> delete from board where bno = #{bno} </delete>
+<!--   search   -->
+	<select id="listSearch" resultType="com.pkt.model.BoardVO">
+		<![CDATA[ select * from board where bno > 0 ]]>
+		<include refid="search"/>
+		<![CDATA[ order by bno desc limit #{pageStart}, #{perPageNum} ]]>
+	</select>
+	<select id="listSearchCount" resultType="int">
+		<![CDATA[ select count(bno) from board where bno > 0 ]]>
+		<include refid="search"/>
+	</select>
+	<sql id="search">
+		<if test="searchType != null">
+		<if test="searchType == 't'.toString()"> and title like CONCAT('%', #{keyword}, '%') </if>
+		<if test="searchType == 'c'.toString()"> and content like CONCAT('%', #{keyword}, '%') </if>
+		<if test="searchType == 'w'.toString()"> and writer like CONCAT('%', #{keyword}, '%') </if>
+		<if test="searchType == 'tc'.toString()"> and ( title like CONCAT('%', #{keyword}, '%') OR content like CONCAT('%', #{keyword}, '%')) </if>
+		<if test="searchType == 'cw'.toString()"> and ( content like CONCAT('%', #{keyword}, '%') OR writer like CONCAT('%', #{keyword}, '%')) </if>
+		<if test="searchType == 'tcw'.toString()"> and ( title like CONCAT('%', #{keyword}, '%') OR content like CONCAT('%', #{keyword}, '%') OR writer like CONCAT('%', #{keyword}, '%')) </if>
+		</if>
+	</sql>
+<select id="searchBoards" parameterType="string" resultType="com.pkt.model.BoardVO"> SELECT * FROM board WHERE title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%') </select>
+</mapper>

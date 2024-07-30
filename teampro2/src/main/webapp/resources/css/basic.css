@@ -1,0 +1,22 @@
+@charset "UTF-8";
+* {
+	margin:0px;
+	padding:0px;
+	font-size:13px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+table, td {
+	border-collapse:collapse;
+}
+
+a:link, a:visited {
+	color:black; text-decoration:none;
+}
+
+a:hover, a:focus, a:active {
+	color:black; text-decoration:none;
+}
+ .dropdown-item {
+  color: white !important; /* Ensures text is white */
+}

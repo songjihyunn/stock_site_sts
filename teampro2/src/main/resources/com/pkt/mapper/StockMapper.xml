@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pkt.mapper.StockMapper">
+
+	<select id="getStockList" resultType="com.pkt.model.StockVO">
+	    SELECT id,company_name, stockcode,listing FROM StockListKor ORDER BY listing_date DESC
+	</select>
+	
+	<select id="getAllStockCount" resultType="int">
+		select count(*) from StockListKor
+	</select>
+	
+	<select id="getStockInfo" resultType="com.pkt.model.StockVO">
+		select * from stocklistkor where id=#{id}
+	</select>
+	
+	<select id="getHavePortPolio" resultType="int">
+		SELECT COUNT(*) FROM polio WHERE userid = #{userid} AND stock_id = #{stock_id}
+	</select>
+	
+	<insert id="addToPortfolio">
+		insert into polio values (#{userid}, #{company}, #{stock_id})
+	</insert>
+</mapper>

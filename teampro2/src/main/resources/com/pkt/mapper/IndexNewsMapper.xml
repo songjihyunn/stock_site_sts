@@ -1,0 +1,11 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.pkt.mapper.IndexNewsMapper">
+	<select id="getList" resultType="com.pkt.model.IndexNewsVO">
+		<![CDATA[ SELECT * FROM indexnews ORDER BY id DESC LIMIT 10; ]]>
+	</select>
+	<select id="getDetail" resultType="com.pkt.model.IndexNewsVO"> SELECT * FROM indexnews WHERE id=#{id} </select>
+	<select id="getStockCodeById" resultType="java.lang.String"> SELECT stockCode FROM indexnews WHERE id=#{id} </select>
+	<select id="searchIndexNews" parameterType="string" resultType="com.pkt.model.IndexNewsVO"> SELECT * FROM indexnews WHERE title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%') </select>
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pkt.mapper.AdminBoardMapper">
+	<select id="getBoardList" resultType="com.pkt.model.BoardVO"> SELECT * FROM board ORDER BY regdate DESC LIMIT #{pageStart}, #{perPageNum} </select>
+	<select id="boardCount" resultType="int"> select count(bno) from board </select>
+	<select id="getOneBoard" resultType="com.pkt.model.BoardVO"> select * from board where bno=#{bno} </select>
+	<update id="update"> update board set show_code=#{show_code} where bno=#{bno} </update>
+	<!--  페이징  -->
+	<select id="listCriteria" resultType="com.pkt.model.MemberVO"> select * from board order by regdate desc limit #{startPage}, #{perPageNum} </select>
+	<select id="countPaging" resultType="int"> select count(bno) from board </select>
+</mapper>

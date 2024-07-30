@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pkt.mapper.PortMapper">
+
+    <!-- 포트 정보 등록 -->
+    <insert id="create" parameterType="com.pkt.model.PortVO">
+        INSERT INTO polio (userid, company)
+        VALUES (#{userid}, #{company})
+    </insert>
+	
+	<select id="getList" resultType="com.pkt.model.PortVO">
+		<!--  <![CDATA[ ]]: sql 구문안에 비교 연산자가 들어갈 경우(특수문자) 문자열로 인식하게 하기 위해서 ...  -->
+		<![CDATA[ select * from polio where userid = {userid} ]]>
+	</select>
+	
+	<!--  수정  -->
+	<update id="update"> update polio set userid =#{userid}, company =#{company}</update>
+	
+	<delete id="delete">
+    	DELETE FROM polio WHERE userid = #{userid} AND company = #{company} AND stock_id = #{stock_id}
+	</delete>
+	
+	
+</mapper>
