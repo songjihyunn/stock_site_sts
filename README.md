@@ -7,7 +7,7 @@
 - [프로젝트 아키텍처](#프로젝트-아키텍처)
 
 ## 프로젝트 개요
-이 프로젝트 spring과 python을 병렬로 사용하는 프로젝트입니다. 테스트를 하려 spring 환경과 python flask 환경을 이용해주세요.
+이 프로젝트 spring과 python을 병렬로 사용하는 프로젝트입니다. 테스트를 하려면 spring 환경과 python flask 환경을 이용해주세요.
 
 🔗 python https://github.com/songjihyunn/stock_site_python
 
